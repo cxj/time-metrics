@@ -1,0 +1,24 @@
+{
+    "name": "cxj/time-metrics",
+    "type": "library",
+    "description": "provides some timing metrics",
+    "license": "MIT",
+    "require": {
+        "phpstan/phpstan": "^0.12.32",
+        "phpstan/phpstan-phpunit": "^0.12.11",
+        "phpunit/phpunit": "^9.2"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cxj\\Metrics\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cxj\\Metrics\\": "tests/"
+        }
+    }
+}
