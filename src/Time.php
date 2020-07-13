@@ -18,7 +18,7 @@ class Time implements TimeInterface
     public function __construct()
     {
         $this->startCpu  = $this->makeCpu();
-        $this->startWall = microtime(true);
+        $this->startWall = $this->makeMicrotime();
         $this->cpu       = $this->startCpu;
         $this->wall      = $this->startWall;
     }
@@ -38,6 +38,16 @@ class Time implements TimeInterface
     }
 
     /**
+     * Returns the system's high resolution time in microseconds.
+     * This is more CPU efficient and accurate than using microtime().
+     * @return int
+     */
+    private function makeMicrotime(): int
+    {
+        return (int)(hrtime(true) / 1e+3);
+    }
+
+    /**
      * Resets CPU microsecond counter to "current" process value.
      */
     public function resetCpu(): void
@@ -50,7 +60,7 @@ class Time implements TimeInterface
      */
     public function resetWall(): void
     {
-        $this->wall = microtime(true);
+        $this->wall = $this->makeMicrotime();
     }
 
     public function startCpu(): void
@@ -91,7 +101,7 @@ class Time implements TimeInterface
      */
     public function getDeltaWall(): int
     {
-        $delta = microtime(true) - $this->wall;
+        $delta = $this->makeMicrotime() - $this->wall;
         $this->resetWall();
 
         return $delta;
@@ -112,6 +122,6 @@ class Time implements TimeInterface
      */
     public function getTotalWall(): int
     {
-        return microtime(true) - $this->startWall;
+        return $this->makeMicrotime() - $this->startWall;
     }
 }

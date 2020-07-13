@@ -18,6 +18,10 @@ class TimeTest extends TestCase
     public function testConstruct(): void
     {
         $this->assertInstanceOf(Time::class, $this->metric);
+    }
+
+    public function testTotals(): void
+    {
         // Make sure the clocks tick to be non-zero.  Could be improved.
         sleep(1);
         $this->assertGreaterThan(0, $this->metric->getTotalCpu(), "cpu");
